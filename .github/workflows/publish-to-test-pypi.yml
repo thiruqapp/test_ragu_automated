@@ -2,7 +2,15 @@
 name: Publish Python 🐍 distribution 📦 to PyPI and TestPyPI
 
 # The event that triggers the workflow.
-on: push
+on:
+  push:
+
+    # This workflow runs only on pushes to main branch
+    branches: [ main ]
+
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 
 # Job definitions for the workflow.
@@ -74,6 +82,51 @@ jobs:
 
     # The name of the job that GitHub displays on the Actions tab.
     name: Publish Python 🐍 distribution 📦 to TestPyPI
+
+    # This job runs only if the `build` job is successful.
+    needs:
+      - build
+
+    # The platforms on which the job will run.
+    runs-on: ubuntu-latest
+
+    # The environment in which the job will run.
+    # Ref - https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#jobsjob_idenvironment
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/p/test_ragu_automated
+
+    # The permissions required for this job.
+    # Ref - https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#jobsjob_idpermissions
+    permissions:
+      # The `id-token: write` permission is mandatory for trusted publishing to TestPyPI.
+      id-token: write
+
+    # The steps that the job will execute.
+    steps:
+      # Step 1: Downloads the built distribution packages from the previous job.
+      # Ref - https://github.com/marketplace/actions/download-a-build-artifact
+      - name: Download all the dists
+        uses: actions/download-artifact@v4
+        with:
+          name: python-package-distributions
+          path: dist/
+
+      # Step 2: Publishes the distribution packages to TestPyPI.
+      # Ref - https://github.com/marketplace/actions/pypi-publish
+      - name: Publish distribution 📦 to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+
+        # Only for test PyPI, remove it for live version
+        with:
+          repository-url: https://test.pypi.org/legacy/
+
+  # Job ID: publish-to-pypi
+  # This job publishes the built Python package distribution to PyPI.
+  release:
+
+    # The name of the job that GitHub displays on the Actions tab.
+    name: Create Python 🐍 distribution 📦 release on GitHub
 
     # This job runs only if the `build` job is successful.
     needs:
