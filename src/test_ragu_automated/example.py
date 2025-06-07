@@ -6,3 +6,6 @@ def add_two(number):
 
 def add_three(number):
     return number + 3
+
+def add_three(number):
+    return number + 4
