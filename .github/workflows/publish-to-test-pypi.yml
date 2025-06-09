@@ -178,7 +178,31 @@ jobs:
       
       - name: Display structure of downloaded files
         run: ls -R
-      
+
+
+  # Job ID: publish-to-pypi
+  # This job publishes the built Python package distribution to PyPI.
+  docs_deploy:
+    # The name of the job that GitHub displays on the Actions tab.
+    name: Upload Python 🐍 docs 📦 on AWS S3
+
+    # This job runs only if the `build` job is successful.
+    needs:
+      - build
+
+    # The platforms on which the job will run.
+    runs-on: ubuntu-latest
+
+    permissions:
+      # Ref - https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#permissions
+      id-token: write  # This is required for requesting the JWT
+
+    # The steps that the job will execute.
+    steps:
+
+      - name: Display structure before downloaded files
+        run: ls -R
+
       # Step 1: Downloads the built distribution packages from the previous job.
       # Ref - https://github.com/marketplace/actions/download-a-build-artifact
       - name: Download all the dists
@@ -191,3 +215,12 @@ jobs:
       - name: Display structure of downloaded files - 2
         run: ls -R
       
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::558470717245:role/github_test_repo
+          role-session-name: samplerolesession
+          aws-region: ap-south-1
+      
+      - name: Upload docs to S3
+        run: aws s3 sync site/ s3://test-ragu-automated-docs --delete
