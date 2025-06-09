@@ -51,6 +51,7 @@ jobs:
           pip install
           build
           mkdocs-material
+          mike
           --user
 
       # Step 4: Build the Python package distribution.
@@ -211,4 +212,9 @@ jobs:
           aws-region: ap-south-1
       
       - name: Upload docs to S3
-        run: aws s3 sync site/ s3://tmp-ragu-github-actions/${{ github.ref_name }} --delete
+        run: |
+          # Latest version of docs
+          aws s3 sync site/ s3://tmp-ragu-github-actions
+          
+          # Previous version of docs
+          aws s3 sync site/ s3://tmp-ragu-github-actions/${{ github.ref_name }} --delete
