@@ -223,4 +223,4 @@ jobs:
           aws-region: ap-south-1
       
       - name: Upload docs to S3
-        run: aws s3 sync site/ s3://tmp-ragu-github-actions --delete
+        run: aws s3 sync site/ s3://tmp-ragu-github-actions
