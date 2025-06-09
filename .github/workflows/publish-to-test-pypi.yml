@@ -128,10 +128,8 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      # The `id-token: write` permission is mandatory for trusted publishing to TestPyPI.
-      # id-token: write
-      # actions: write
-      contents: write
+      # Ref - https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#permissions
+      contents: write  # Required to create a release
 
     # The steps that the job will execute.
     steps:
@@ -145,21 +143,11 @@ jobs:
 
       # Step 1: Downloads the built distribution packages from the previous job.
       # Ref - https://github.com/marketplace/actions/download-a-build-artifact
-      - name: Get directory
-        run: ls -R && pwd
-
-      # Step 1: Downloads the built distribution packages from the previous job.
-      # Ref - https://github.com/marketplace/actions/download-a-build-artifact
       - name: Download all the dists
         uses: actions/download-artifact@v4
         with:
           name: python-package-distributions
           path: dist/
-
-      # Step 1: Downloads the built distribution packages from the previous job.
-      # Ref - https://github.com/marketplace/actions/download-a-build-artifact
-      - name: Get directory
-        run: ls -R && pwd
 
       # Step 2: Create GitHub Release
       # Ref - https://github.com/marketplace/actions/pypi-publish
@@ -168,6 +156,7 @@ jobs:
 
         # Only for test PyPI, remove it for live version
         with:
-          files: dist/*.whl,dist/*.tar.gz
+          files: dist/
+          # files: dist/*.whl,dist/*.tar.gz
           draft: false
           preserve_order: true
