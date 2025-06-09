@@ -134,12 +134,12 @@ jobs:
     # The steps that the job will execute.
     steps:
 
-      # Step 1: Checks-out the repository, so the workflow can access its contents.
-      # Ref - https://github.com/marketplace/actions/checkout
-      - uses: actions/checkout@v4
-        with:
-          # Do not persist credentials to avoid issues with LFS
-          persist-credentials: false
+      # # Step 1: Checks-out the repository, so the workflow can access its contents.
+      # # Ref - https://github.com/marketplace/actions/checkout
+      # - uses: actions/checkout@v4
+      #   with:
+      #     # Do not persist credentials to avoid issues with LFS
+      #     persist-credentials: false
 
       # Step 1: Downloads the built distribution packages from the previous job.
       # Ref - https://github.com/marketplace/actions/download-a-build-artifact
@@ -156,7 +156,6 @@ jobs:
 
         # Only for test PyPI, remove it for live version
         with:
-          files: dist/
-          # files: dist/*.whl,dist/*.tar.gz
+          files: dist/*.whl,dist/*.tar.gz
           draft: false
           preserve_order: true
