@@ -1,5 +1,5 @@
 site_name: My Docs
-site_url: https://mydomain.org/mysite
+site_url: http://tmp-ragu-github-actions.s3-website-us-east-1.amazonaws.com/
 
 repo_url: https://github.com/thiruqapp/test_ragu_automated
 repo_name: thiruqapp/test_ragu_automated
