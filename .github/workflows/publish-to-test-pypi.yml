@@ -7,9 +7,9 @@ on:
     # This workflow runs only on pushes to main branch
     branches: [main]
 
-    # # Sequence of patterns matched against refs/tags
-    # tags:
-    #   - "v*" # Push events to matching v*, i.e. v1.0, v20.15.10
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - "v*" # Push events to matching v*, i.e. v1.0, v20.15.10
 
 # Job definitions for the workflow.
 jobs:
