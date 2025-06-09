@@ -89,49 +89,49 @@ jobs:
           # The `site/` directory is created by the `build` step.
           path: site/
 
-#   # Job ID: publish-to-pypi
-#   # This job publishes the built Python package distribution to PyPI.
-#   publish-to-testpypi:
-#     # The name of the job that GitHub displays on the Actions tab.
-#     name: Publish Python 🐍 distribution 📦 to TestPyPI
+  # Job ID: publish-to-pypi
+  # This job publishes the built Python package distribution to PyPI.
+  publish-to-testpypi:
+    # The name of the job that GitHub displays on the Actions tab.
+    name: Publish Python 🐍 distribution 📦 to TestPyPI
 
-#     # This job runs only if the `build` job is successful.
-#     needs:
-#       - build
+    # This job runs only if the `build` job is successful.
+    needs:
+      - build
 
-#     # The platforms on which the job will run.
-#     runs-on: ubuntu-latest
+    # The platforms on which the job will run.
+    runs-on: ubuntu-latest
 
-#     # The environment in which the job will run.
-#     # Ref - https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#jobsjob_idenvironment
-#     environment:
-#       name: testpypi
-#       url: https://test.pypi.org/p/test_ragu_automated
+    # The environment in which the job will run.
+    # Ref - https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#jobsjob_idenvironment
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/p/test_ragu_automated
 
-#     # The permissions required for this job.
-#     # Ref - https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#jobsjob_idpermissions
-#     permissions:
-#       # The `id-token: write` permission is mandatory for trusted publishing to TestPyPI.
-#       id-token: write
+    # The permissions required for this job.
+    # Ref - https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#jobsjob_idpermissions
+    permissions:
+      # The `id-token: write` permission is mandatory for trusted publishing to TestPyPI.
+      id-token: write
 
-#     # The steps that the job will execute.
-#     steps:
-#       # Step 1: Downloads the built distribution packages from the previous job.
-#       # Ref - https://github.com/marketplace/actions/download-a-build-artifact
-#       - name: Download all the dists
-#         uses: actions/download-artifact@v4
-#         with:
-#           name: python-package-distributions
-#           path: dist/
+    # The steps that the job will execute.
+    steps:
+      # Step 1: Downloads the built distribution packages from the previous job.
+      # Ref - https://github.com/marketplace/actions/download-a-build-artifact
+      - name: Download all the dists
+        uses: actions/download-artifact@v4
+        with:
+          name: python-package-distributions
+          path: dist/
 
-#       # Step 2: Publishes the distribution packages to TestPyPI.
-#       # Ref - https://github.com/marketplace/actions/pypi-publish
-#       - name: Publish distribution 📦 to TestPyPI
-#         uses: pypa/gh-action-pypi-publish@release/v1
+      # Step 2: Publishes the distribution packages to TestPyPI.
+      # Ref - https://github.com/marketplace/actions/pypi-publish
+      - name: Publish distribution 📦 to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
 
-#         # Only for test PyPI, remove it for live version
-#         with:
-#           repository-url: https://test.pypi.org/legacy/
+        # Only for test PyPI, remove it for live version
+        with:
+          repository-url: https://test.pypi.org/legacy/
 
   # Job ID: publish-to-pypi
   # This job publishes the built Python package distribution to PyPI.
@@ -152,9 +152,6 @@ jobs:
 
     # The steps that the job will execute.
     steps:
-
-      - name: Display structure before downloaded files
-        run: ls -R
         
       # Step 1: Downloads the built distribution packages from the previous job.
       # Ref - https://github.com/marketplace/actions/download-a-build-artifact
@@ -175,10 +172,8 @@ jobs:
           draft: false
           preserve_order: true
 
-      
       - name: Display structure of downloaded files
         run: ls -R
-
 
   # Job ID: publish-to-pypi
   # This job publishes the built Python package distribution to PyPI.
@@ -200,9 +195,6 @@ jobs:
     # The steps that the job will execute.
     steps:
 
-      - name: Display structure before downloaded files
-        run: ls -R
-
       # Step 1: Downloads the built distribution packages from the previous job.
       # Ref - https://github.com/marketplace/actions/download-a-build-artifact
       - name: Download all the dists
@@ -211,10 +203,6 @@ jobs:
           name: python-package-docs
           path: site/
 
-      
-      - name: Display structure of downloaded files - 2
-        run: ls -R
-      
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
