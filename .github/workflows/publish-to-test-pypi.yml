@@ -162,6 +162,6 @@ jobs:
 
         # Only for test PyPI, remove it for live version
         with:
-          files: dist/
+          files: dist/*.whl,dist/*.tar.gz
           draft: false
           preserve_order: true
