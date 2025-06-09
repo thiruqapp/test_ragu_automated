@@ -4,8 +4,8 @@ name: Publish Python 🐍 distribution 📦 to PyPI and TestPyPI
 # The event that triggers the workflow.
 on:
   push:
-    # This workflow runs only on pushes to main branch
-    branches: [main]
+    # # This workflow runs only on pushes to main branch
+    # branches: [main]
 
     # Sequence of patterns matched against refs/tags
     tags:
