@@ -129,8 +129,8 @@ jobs:
 
     permissions:
       # The `id-token: write` permission is mandatory for trusted publishing to TestPyPI.
-      id-token: write
-      actions: write
+      # id-token: write
+      # actions: write
       contents: write
 
     # The steps that the job will execute.
