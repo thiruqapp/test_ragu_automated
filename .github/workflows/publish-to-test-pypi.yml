@@ -4,8 +4,8 @@ name: Publish Python 🐍 distribution 📦 to PyPI and TestPyPI
 # The event that triggers the workflow.
 on:
   push:
-    # This workflow runs only on pushes to main branch
-    branches: [main]
+    # # This workflow runs only on pushes to main branch
+    # branches: [main]
 
     # Sequence of patterns matched against refs/tags
     tags:
@@ -136,6 +136,11 @@ jobs:
         with:
           # Do not persist credentials to avoid issues with LFS
           persist-credentials: false
+
+      # Step 1: Downloads the built distribution packages from the previous job.
+      # Ref - https://github.com/marketplace/actions/download-a-build-artifact
+      - name: Get directory
+        run: ls && pwd
 
       # Step 1: Downloads the built distribution packages from the previous job.
       # Ref - https://github.com/marketplace/actions/download-a-build-artifact
