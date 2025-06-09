@@ -1,5 +1,9 @@
 site_name: My Docs
 site_url: https://mydomain.org/mysite
+
+repo_url: https://github.com/thiruqapp/test_ragu_automated
+repo_name: thiruqapp/test_ragu_automated
+
 theme:
   name: material
 
