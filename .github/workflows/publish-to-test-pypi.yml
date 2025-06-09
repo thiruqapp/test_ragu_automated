@@ -136,6 +136,7 @@ jobs:
         with:
           # Do not persist credentials to avoid issues with LFS
           persist-credentials: false
+
       # Step 1: Downloads the built distribution packages from the previous job.
       # Ref - https://github.com/marketplace/actions/download-a-build-artifact
       - name: Download all the dists
@@ -143,6 +144,11 @@ jobs:
         with:
           name: python-package-distributions
           path: dist/
+
+      # Step 1: Downloads the built distribution packages from the previous job.
+      # Ref - https://github.com/marketplace/actions/download-a-build-artifact
+      - name: Get directory
+        run: ls && pwd
 
       # Step 2: Create GitHub Release
       # Ref - https://github.com/marketplace/actions/pypi-publish
