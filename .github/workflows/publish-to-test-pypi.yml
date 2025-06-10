@@ -162,6 +162,9 @@ jobs:
           name: python-package-distributions
           path: dist/
 
+      - name: Display structure of downloaded files
+        run: ls -R
+
       # Step 2: Create GitHub Release
       # Ref - https://github.com/marketplace/actions/pypi-publish
       - name: Create GitHub Release
@@ -172,9 +175,6 @@ jobs:
           files: dist/*.whl,dist/*.tar.gz
           draft: false
           preserve_order: true
-
-      - name: Display structure of downloaded files
-        run: ls -R
 
   # Job ID: publish-to-pypi
   # This job publishes the built Python package distribution to PyPI.
@@ -207,19 +207,19 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.AWS_DOCS_UPLOAD_ROLE }}
-          role-session-name: python-sdk-${{ github.ref_name }}-docs-upload
-          aws-region: ${{ secrets.AWS_DOCS_UPLOAD_REGION }}
-        #   role-to-assume: arn:aws:iam::558470717245:role/github_test_repo
-        #   role-session-name: samplerolesession
-        #   aws-region: ap-south-1
+          # role-to-assume: ${{ secrets.AWS_DOCS_UPLOAD_ROLE }}
+          # role-session-name: python-sdk-${{ github.ref_name }}-docs-upload
+          # aws-region: ${{ secrets.AWS_DOCS_UPLOAD_REGION }}
+          role-to-assume: arn:aws:iam::558470717245:role/github_test_repo
+          role-session-name: samplerolesession
+          aws-region: ap-south-1
       
       - name: Upload docs to S3
         run: |
           # Latest version of docs
-          # aws s3 sync site/ s3://tmp-ragu-github-actions
-          aws s3 sync site/ s3://${{ secrets.AWS_DOCS_UPLOAD_S3_BUCKET }}
+          aws s3 sync site/ s3://tmp-ragu-github-actions
+          # aws s3 sync site/ s3://${{ secrets.AWS_DOCS_UPLOAD_S3_BUCKET }}
           
           # Previous version of docs
-          # aws s3 sync site/ s3://tmp-ragu-github-actions/${{ github.ref_name }} --delete
-          aws s3 sync site/ s3://${{ secrets.AWS_DOCS_UPLOAD_S3_BUCKET }}/${{ github.ref_name }} --delete
+          aws s3 sync site/ s3://tmp-ragu-github-actions/${{ github.ref_name }} --delete
+          # aws s3 sync site/ s3://${{ secrets.AWS_DOCS_UPLOAD_S3_BUCKET }}/${{ github.ref_name }} --delete
