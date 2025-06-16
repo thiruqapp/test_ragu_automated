@@ -44,11 +44,10 @@ The key features are:
 
 ---
 ## Installation
-<div>
+
 ```bash
 pip install quantsapp
 ```
-</div>
 
 ---
 
