@@ -45,7 +45,7 @@ The key features are:
 ---
 ## Installation
 <div>
-```title="Command Prompt / Terminal"
+```bash
 pip install quantsapp
 ```
 </div>
